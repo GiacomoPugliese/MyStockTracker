@@ -7,7 +7,7 @@ import plotly.express as px
 import requests
 from datetime import datetime
 
-st.title("Interactive Stock Tracker 📈")
+st.title("MyStockTracker 📈")
 st.write("Select which stock you want to research, and navigate through each page to receive analysis")
 
 def get_stock_data(symbol, api_key, interval='5min'):
@@ -88,7 +88,7 @@ if choice == "Stock Overview":
     st.write(f'Industry: {data["Industry"]}')
     st.write(f'Exchange: {data["Exchange"]}')
     st.write(f'Description: {data["Description"]}')
-
+    st.session_state["pe"] = data["PERatio"]
     #Graphs
     graphs(tickerSymbol)
 
@@ -115,7 +115,7 @@ if choice == "Financial Analysis":
         ["Volume", global_quote["06. volume"]],
         ["Latest Trading Day", global_quote["07. latest trading day"]],
         ["Previous Close", global_quote["08. previous close"]],
-        ["Change", global_quote["09. change"]],
+        ["PE Ratio", st.session_state["pe"]],
         ["Change Percent", global_quote["10. change percent"]]
     ]
     df = pd.DataFrame(table_data, columns=["Metric", "Value"]).set_index("Metric")
@@ -134,7 +134,7 @@ if choice == "Financial Analysis":
             ["Income Tax Expense", str(format(int(table1["incomeTaxExpense"]), ","))],
             ["Net Income", str(format(int(table1["netIncome"]), ","))],
             ["Total Assets", str(format(int(table2["totalAssets"]), ","))],
-            ["ineventory", str(format(int(table2["inventory"]), ","))],
+            ["Ineventory", str(format(int(table2["inventory"]), ","))],
             ["Investments", str(format(int(table2["investments"]), ","))],
             ["Current Debt", str(format(int(table2["currentDebt"]), ","))],
             ["Operating Cash Flow", str(format(int(table3["operatingCashflow"]), ","))]
