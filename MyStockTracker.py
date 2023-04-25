@@ -7,8 +7,23 @@ import plotly.express as px
 import requests
 from datetime import datetime
 
+st.set_page_config(
+    page_title='MyStockTracker',
+    page_icon='book'
+)  
+
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 st.title("MyStockTracker 📈")
 st.write("Select which stock you want to research, and navigate through each page to receive analysis")
+ 
 
 def get_stock_data(symbol, api_key, interval='5min'):
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={api_key}'
