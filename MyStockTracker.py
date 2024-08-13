@@ -166,7 +166,7 @@ if choice == "My Feed":
         data = r.json()["feed"][i]
 
         # Display article information
-        st.subheader(data['title'])
+        st.markdown(f"### **{data['title']}**")
         st.markdown(f"**Published:** {data['time_published']}")
         st.markdown(f"**Authors:** {', '.join(data['authors'])}")
         st.markdown(f"**Source:** {data['source']}")
